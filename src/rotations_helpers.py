@@ -2,7 +2,15 @@ import SimpleITK as sitk
 import numpy as np
 import matplotlib.pyplot as plt
 from typing import Union
+from enum import Enum
 
+class View(Enum):
+    """X (sagittal), Y (coronal), or Z (axial) view.
+    
+    The letters are assigned indices 0 to 2 to be used for indexing operations."""
+    X = 0
+    Y = 1
+    Z = 2
 
 def degrees_to_radians(angle: Union[int, float]) -> float:
     return angle * np.pi / 180
