@@ -21,7 +21,7 @@ def disp_slice(img_2d: Union[sitk.Image, np.ndarray]) -> None:
     :type img_2d: sitk.Image or np.ndarray"""
     if isinstance(img_2d, sitk.Image):
         img_2d = sitk.GetArrayFromImage(img_2d)
-    plt.imshow(img_2d)
+    plt.imshow(img_2d, cmap="gray")
     plt.axis("off")
     plt.show()
 
