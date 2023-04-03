@@ -38,7 +38,7 @@ def get_center_of_rotation(img: sitk.Image) -> tuple:
         [(dimension - 1) / 2.0 for dimension in img.GetSize()]
     )
 
-def resample_2d_rotation(img_2d: sitk.Image, euler_2d_transform: sitk.Euler2DTransform, theta: int) -> None:
+def resample_2d_rotation(img_2d: sitk.Image, euler_2d_transform: sitk.Euler2DTransform, θ: int) -> None:
     """Apply 2D rotation to 2D image and render.
     
     euler_2d_transform's center should be set to img_2d's center before passing into this function.
@@ -51,11 +51,11 @@ def resample_2d_rotation(img_2d: sitk.Image, euler_2d_transform: sitk.Euler2DTra
     :type theta: int
     :return: None
     :rtype: None"""
-    euler_2d_transform.SetAngle(degrees_to_radians(theta))
+    euler_2d_transform.SetAngle(degrees_to_radians(θ))
     rotated_slice: sitk.Image = sitk.Resample(img_2d, euler_2d_transform)
     disp_slice(rotated_slice)
 
-def resample_3d_rotation(img_3d: sitk.Image, euler_3d_transform: sitk.Euler3DTransform, theta_x: int, theta_y: int, theta_z: int, slice: int, view: View) -> None:
+def resample_3d_rotation(img_3d: sitk.Image, euler_3d_transform: sitk.Euler3DTransform, θ_x: int, θ_y: int, θ_z: int, slice: int, view: View) -> None:
     """Apply 3D rotation to 3D image and render.
     
     euler_3d_transform's center should be set to img_3d's center before passing into this function.
@@ -64,19 +64,19 @@ def resample_3d_rotation(img_3d: sitk.Image, euler_3d_transform: sitk.Euler3DTra
     :type img_3d: sitk.Image
     :param euler_3d_transform:
     :type euler_3d_transform: sitk.Euler3DTransform
-    :param theta_x: degrees
-    :type theta_x: int
-    :param theta_y: degrees
-    :type theta_y: int
-    :param theta_z: degrees
-    :type theta_z: int
+    :param θ_x: degrees
+    :type θ_x: int
+    :param θ_y: degrees
+    :type θ_y: int
+    :param θ_z: degrees
+    :type θ_z: int
     :param slice:
     :type slice: int
     :param view:
     :type view: View
     :return: None
     :rtype: None"""
-    euler_3d_transform.SetRotation(degrees_to_radians(theta_x), degrees_to_radians(theta_y), degrees_to_radians(theta_z))
+    euler_3d_transform.SetRotation(degrees_to_radians(θ_x), degrees_to_radians(θ_y), degrees_to_radians(θ_z))
     rotated: sitk.Image = sitk.Resample(img_3d, euler_3d_transform)
     rotated_slice: sitk.Image
     if view == View.X:
