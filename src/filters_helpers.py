@@ -3,20 +3,24 @@
 import SimpleITK as sitk
 import numpy as np
 import matplotlib.pyplot as plt
-from rotations_helpers import disp_slice
 
 STABLE_TIME_STEP: float = 0.0625
 
-def get_center_axial_slice(img_path: str) -> sitk.Image:
+def get_img(img_path: str) -> sitk.Image:
     reader: sitk.ImageFileReader = sitk.ImageFileReader()
     reader.SetFileName(img_path)
     img_3d: sitk.Image = reader.Execute()
     orient_filter: sitk.DICOMOrientImageFilter = sitk.DICOMOrientImageFilter()
     orient_filter.SetDesiredCoordinateOrientation("LPS")
-    img_3d_axial: sitk.Image = orient_filter.Execute(img_3d)
+    return orient_filter.Execute(img_3d)
+
+def disp_center_axial_slice(img_3d: sitk.Image) -> None:
     z_center: int = (img_3d.GetSize()[2] - 1) // 2
-    slice_axial: sitk.Image = img_3d_axial[:, :, z_center]
-    return slice_axial
+    slice_axial: sitk.Image = img_3d[:, :, z_center]
+    img_2d = sitk.GetArrayFromImage(slice_axial)
+    plt.imshow(img_2d, cmap="gray")
+    plt.axis("off")
+    plt.show()
 
 def apply_anisotropic_diffusion(img: sitk.Image, conductance_param: float) -> sitk.Image:
     anisotropic_diffusion_filter = sitk.GradientAnisotropicDiffusionImageFilter()
