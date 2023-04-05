@@ -4,10 +4,5 @@ matplotlib==3.7.1
 ipywidgets==7.7.0
 argparse==1.4.0
 opencv-python==4.7.0.72
-
-# Other people don't need these
-# Remove when we're done with the repo
-pytest==6.2.5
-black==23.1.0
-black[jupyter]==23.1.0
-pre-commit==3.2.1
+PySide6==6.4.3
+qimage2ndarray==1.10.0
